@@ -16,6 +16,11 @@
         <img src="assets/logo-main.png" alt="طَيف">
         <span>طَيف</span>
       </a>
+      <button class="nav-toggle" aria-label="فتح القائمة" aria-expanded="false">
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+      </button>
       <ul class="nav-links">
         <li><a href="./">الرئيسية</a></li>
         <li><a href="./privacy.html">سياسة الخصوصية</a></li>
@@ -225,6 +230,30 @@
       document.querySelectorAll('.legal-tab').forEach(t => t.classList.remove('active'));
       event.target.classList.add('active');
     }
+
+    // Mobile menu toggle
+    (function() {
+      const toggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      if (toggle && navLinks) {
+        toggle.addEventListener('click', function() {
+          toggle.classList.toggle('active');
+          navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            toggle.classList.remove('active');
+            navLinks.classList.remove('active');
+          });
+        });
+        document.addEventListener('click', function(e) {
+          if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
+            toggle.classList.remove('active');
+            navLinks.classList.remove('active');
+          }
+        });
+      }
+    })();
   </script>
 
 </body>
